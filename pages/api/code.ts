@@ -4,8 +4,8 @@ import SteamTotp from "steam-totp";
 // 模拟数据库：在这里写死 Steam 用户名和对应 shared_secret
 const secrets: Record<string, string> = {
   "2ipujt": "AdaHc2xpQC4CV5AREPMRMrn7jOU=",
-  // 更多账号可以继续加...
 };
+
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { steamUsername } = req.query;
