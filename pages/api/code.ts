@@ -8,7 +8,7 @@ const secrets: Record<string, string> = {
 
 // 模拟数据库：Shopee 订单号和对应 Steam 用户名的绑定
 const validOrders: Record<string, string> = {
-  "230519XABCD123": "2ipujt", // 例子：订单编号 -> Steam 用户
+  "231207J48RAG3E": "2ipujt", // 例子：订单编号 -> Steam 用户
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
