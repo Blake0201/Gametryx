@@ -17,11 +17,6 @@ export default function Home() {
       password: "&3Hx0D9sA",
       game: "Cyberpunk 2077",
     },
-    "Khoo": {
-      username: "khoouser",
-      password: "Khoo@123",
-      game: "Cyberpunk 2077",
-    },
   };
 
   const handleSearch = async () => {
@@ -44,8 +39,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-10 bg-gradient-to-br from-[#0f172a] to-black text-white">
-      <h1 className="text-4xl font-bold mb-8 text-cyan-400 drop-shadow-lg">
-        🎮 Gametryx Steam Account/Code
+      <h1 className="text-4xl font-bold mb-8 text-cyan-400 drop-shadow-lg text-center">
+        🎮 Gametryx Steam Code Generator
       </h1>
 
       <div className="w-full max-w-md space-y-4">
@@ -58,7 +53,7 @@ export default function Home() {
         />
         <button
           onClick={handleSearch}
-          className="w-full bg-cyberBlue hover:bg-cyan-500 text-black font-bold py-3 px-4 rounded-lg transition-all"
+          className="w-full bg-cyan-400 hover:bg-cyan-500 text-black font-bold py-3 px-4 rounded-lg transition-all"
         >
           🚀 Get Steam Info
         </button>
