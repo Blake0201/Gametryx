@@ -37,7 +37,7 @@ export default function LookupPage() {
       <h2>🛒 Shopee 订单 Steam Guard 查询</h2>
       <input
         type="text"
-        placeholder="输入 Shopee 订单号"
+        placeholder="输入 Shopee Order ID"
         value={orderId}
         onChange={(e) => setOrderId(e.target.value)}
         style={{ width: "100%", padding: 10, marginBottom: 10 }}
@@ -50,10 +50,10 @@ export default function LookupPage() {
 
       {result && (
         <div style={{ marginTop: 20, border: "1px solid #ccc", padding: 10 }}>
-          <p><strong>🎮 游戏：</strong>{result.game}</p>
-          <p><strong>🎮 Steam 用户名：</strong>{result.username}</p>
-          <p><strong>🔑 密码：</strong>{result.password}</p>
-          <p><strong>✅ Steam Guard 验证码：</strong>{result.code}</p>
+          <p><strong>🎮 Game：</strong>{result.game}</p>
+          <p><strong>🎮 Steam UserName：</strong>{result.username}</p>
+          <p><strong>🔑 Steam Password：</strong>{result.password}</p>
+          <p><strong>✅ Steam Guard Code：</strong>{result.code}</p>
         </div>
       )}
     </div>
