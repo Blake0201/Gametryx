@@ -45,7 +45,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 py-10 bg-gradient-to-br from-[#0f172a] to-black text-white">
       <h1 className="text-4xl font-bold mb-8 text-cyan-400 drop-shadow-lg">
-        🎮 Gametryx Steam Guard Center
+        🎮 Gametryx Steam Account/Code
       </h1>
 
       <div className="w-full max-w-md space-y-4">
