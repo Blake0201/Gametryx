@@ -18,18 +18,18 @@ export default function Home() {
       game: "Cyberpunk 2077",
     },
     "Khoo": {
-      username: "2ipujt",
-      password: "&3Hx0D9sA",
+      username: "khoouser",
+      password: "Khoo@123",
       game: "Cyberpunk 2077",
-    }
+    },
   };
 
   const handleSearch = async () => {
     setError("");
-    const record = fakeDatabase[orderId];
+    const record = fakeDatabase[orderId.trim()];
     if (!record) {
       setSteamData(null);
-      setError("Order not found. Please check your order ID.");
+      setError("❌ Order not found. Please check your Shopee ID.");
       return;
     }
 
@@ -38,37 +38,40 @@ export default function Home() {
       const code = res.data.code;
       setSteamData({ ...record, code });
     } catch (err) {
-      setError("Failed to generate Steam Guard code. Please try again later.");
+      setError("⚠️ Failed to generate Steam Guard code.");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold mb-6">🎮 Gametryx SteamAcc</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-10 bg-gradient-to-br from-[#0f172a] to-black text-white">
+      <h1 className="text-4xl font-bold mb-8 text-cyan-400 drop-shadow-lg">
+        🎮 Gametryx Steam Guard Center
+      </h1>
 
-      <input
-        type="text"
-        value={orderId}
-        onChange={(e) => setOrderId(e.target.value)}
-        placeholder="Enter Shopee Order ID"
-        className="mb-4 p-2 text-black rounded w-full max-w-md"
-      />
+      <div className="w-full max-w-md space-y-4">
+        <input
+          type="text"
+          value={orderId}
+          onChange={(e) => setOrderId(e.target.value)}
+          placeholder="Enter your Shopee Order ID"
+          className="w-full p-3 rounded-lg text-black placeholder-gray-600 shadow-md"
+        />
+        <button
+          onClick={handleSearch}
+          className="w-full bg-cyberBlue hover:bg-cyan-500 text-black font-bold py-3 px-4 rounded-lg transition-all"
+        >
+          🚀 Get Steam Info
+        </button>
+      </div>
 
-      <button
-        onClick={handleSearch}
-        className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded mb-6"
-      >
-        Search Order
-      </button>
-
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+      {error && <p className="text-red-400 mt-4">{error}</p>}
 
       {steamData && (
-        <div className="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md space-y-3">
-          <p><strong>Steam Username:</strong> {steamData.username}</p>
-          <p><strong>Steam Password:</strong> {steamData.password}</p>
-          <p><strong>Game:</strong> {steamData.game}</p>
-          <p><strong>Guard Code:</strong> {steamData.code}</p>
+        <div className="bg-white/10 backdrop-blur-md p-6 mt-8 rounded-xl shadow-xl text-left w-full max-w-md space-y-3 border border-cyan-500">
+          <p><strong>👤 Username:</strong> {steamData.username}</p>
+          <p><strong>🔑 Password:</strong> {steamData.password}</p>
+          <p><strong>🕹️ Game:</strong> {steamData.game}</p>
+          <p><strong>🛡️ Guard Code:</strong> {steamData.code}</p>
         </div>
       )}
     </div>
