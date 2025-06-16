@@ -38,37 +38,37 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-10 bg-gradient-to-br from-[#0f172a] to-black text-white">
-      <h1 className="text-4xl font-bold mb-8 text-cyan-400 drop-shadow-lg text-center">
-        🎮 Gametryx Steam Account/Code
-      </h1>
+    <div className="h-screen flex items-center justify-center bg-gradient-to-br from-[#0f172a] to-black text-white px-4">
+  <div className="w-full max-w-md text-center">
+    <h1 className="text-4xl font-bold mb-8 text-cyan-400 drop-shadow-lg">
+      🎮 Gametryx Steam Account/Code
+    </h1>
 
-      <div className="w-full max-w-md space-y-4">
-        <input
-          type="text"
-          value={orderId}
-          onChange={(e) => setOrderId(e.target.value)}
-          placeholder="Enter your Shopee Order ID"
-          className="w-full p-3 rounded-lg text-black placeholder-gray-600 shadow-md"
-        />
-        <button
-          onClick={handleSearch}
-          className="w-full bg-cyan-400 hover:bg-cyan-500 text-black font-bold py-3 px-4 rounded-lg transition-all"
-        >
-          🚀 Get Steam Info
-        </button>
-      </div>
-
-      {error && <p className="text-red-400 mt-4">{error}</p>}
-
-      {steamData && (
-        <div className="bg-white/10 backdrop-blur-md p-6 mt-8 rounded-xl shadow-xl text-left w-full max-w-md space-y-3 border border-cyan-500">
-          <p><strong>👤 Username:</strong> {steamData.username}</p>
-          <p><strong>🔑 Password:</strong> {steamData.password}</p>
-          <p><strong>🕹️ Game:</strong> {steamData.game}</p>
-          <p><strong>🛡️ Guard Code:</strong> {steamData.code}</p>
-        </div>
-      )}
+    <div className="space-y-4">
+      <input
+        type="text"
+        value={orderId}
+        onChange={(e) => setOrderId(e.target.value)}
+        placeholder="Enter your Shopee Order ID"
+        className="w-full p-3 rounded-lg text-black placeholder-gray-600 shadow-md"
+      />
+      <button
+        onClick={handleSearch}
+        className="w-full bg-cyberBlue hover:bg-cyan-500 text-black font-bold py-3 px-4 rounded-lg transition-all"
+      >
+        🚀 Get Steam Info
+      </button>
     </div>
-  );
-}
+
+    {error && <p className="text-red-400 mt-4">{error}</p>}
+
+    {steamData && (
+      <div className="bg-white/10 backdrop-blur-md p-6 mt-8 rounded-xl shadow-xl text-left w-full space-y-3 border border-cyan-500">
+        <p><strong>👤 Username:</strong> {steamData.username}</p>
+        <p><strong>🔑 Password:</strong> {steamData.password}</p>
+        <p><strong>🕹️ Game:</strong> {steamData.game}</p>
+        <p><strong>🛡️ Guard Code:</strong> {steamData.code}</p>
+      </div>
+    )}
+  </div>
+</div>
