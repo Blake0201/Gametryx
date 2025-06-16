@@ -1,114 +1,85 @@
-// pages/index.tsx
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Home() {
-  const [code, setCode] = useState("加载中...");
-  const [username] = useState("2ipujt");
+  const [orderId, setOrderId] = useState("");
+  const [steamData, setSteamData] = useState<null | {
+    username: string;
+    password: string;
+    game: string;
+    code: string;
+  }>(null);
+  const [error, setError] = useState("");
 
-  const fetchCode = async () => {
+  const fakeDatabase: Record<string, { username: string; password: string; game: string }> = {
+    "231102HXRPY5DT": {
+      username: "2ipujt",
+      password: "&3Hx0D9sA",
+      game: "Cyberpunk 2077",
+    },
+    // 你可以在这里添加更多订单ID
+  };
+
+  const handleSearch = async () => {
+    setError("");
+    const record = fakeDatabase[orderId];
+    if (!record) {
+      setSteamData(null);
+      setError("找不到这个订单，请检查订单编号是否正确。");
+      return;
+    }
+
     try {
-      const res = await fetch(`/api/code?steamUsername=${username}`);
-      const data = await res.json();
-      setCode(data.code || "获取失败");
-    } catch {
-      setCode("错误");
+      const res = await axios.get(`/api/code?steamUsername=${record.username}`);
+      const code = res.data.code;
+      setSteamData({ ...record, code });
+    } catch (err) {
+      setError("验证码生成失败，请稍后再试。");
     }
   };
 
-  const copyUsername = () => {
-    navigator.clipboard.writeText(username).then(() => {
-      alert("用户名已复制！");
-    });
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    alert("已复制 Steam 用户名！");
   };
 
-  useEffect(() => {
-    fetchCode();
-    const interval = setInterval(fetchCode, 30000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div style={styles.body}>
-      <div style={styles.container}>
-        <h1 style={styles.title}>Steam Guard Info</h1>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 flex flex-col items-center justify-center">
+      <h1 className="text-3xl font-bold mb-6">🎮 Steam Guard 自动提取系统</h1>
+      <input
+        type="text"
+        value={orderId}
+        onChange={(e) => setOrderId(e.target.value)}
+        placeholder="请输入 Shopee 订单号"
+        className="mb-4 p-2 text-black rounded w-full max-w-md"
+      />
+      <button
+        onClick={handleSearch}
+        className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded mb-6"
+      >
+        查找订单
+      </button>
 
-        <div style={styles.field}>
-          <label style={styles.label}>用户名</label>
-          <span style={styles.text}>{username}</span>
-          <button style={styles.button} onClick={copyUsername}>复制</button>
+      {error && <p className="text-red-500 mb-4">{error}</p>}
+
+      {steamData && (
+        <div className="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md space-y-3">
+          <div className="flex items-center justify-between">
+            <span><strong>Steam 用户名:</strong> {steamData.username}</span>
+            <button
+              onClick={() => copyToClipboard(steamData.username)}
+              className="bg-green-600 px-2 py-1 rounded text-sm"
+            >
+              复制
+            </button>
+          </div>
+          <p><strong>Steam 密码:</strong> {steamData.password}</p>
+          <p><strong>游戏:</strong> {steamData.game}</p>
+          <p><strong>验证码:</strong> {steamData.code}</p>
         </div>
-
-        <div style={styles.field}>
-          <label style={styles.label}>密码</label>
-          <span style={styles.text}>&3Hx0D9sA</span>
-        </div>
-
-        <div style={styles.field}>
-          <label style={styles.label}>Steam Guard 验证码</label>
-          <span style={styles.text}>{code}</span>
-        </div>
-
-        <div style={styles.gameTitle}>🎮 Cyberpunk 2077</div>
-      </div>
+      )}
     </div>
   );
 }
 
-const styles = {
-  body: {
-    fontFamily: "'Orbitron', sans-serif",
-    background: "linear-gradient(to right, #0f2027, #203a43, #2c5364)",
-    color: "#fff",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-    margin: 0,
-    padding: 0,
-  },
-  container: {
-    background: "rgba(0, 0, 0, 0.5)",
-    border: "2px solid #00f0ff",
-    borderRadius: 20,
-    padding: "30px 40px",
-    boxShadow: "0 0 20px #00f0ff",
-    maxWidth: 400,
-    textAlign: "center" as const,
-  },
-  title: {
-    marginBottom: 10,
-    fontSize: 28,
-  },
-  field: {
-    margin: "15px 0",
-  },
-  label: {
-    display: "block",
-    fontSize: 14,
-    marginBottom: 5,
-    color: "#aaa",
-  },
-  text: {
-    fontSize: 18,
-    background: "#111",
-    padding: "6px 12px",
-    borderRadius: 8,
-    display: "inline-block",
-  },
-  button: {
-    marginLeft: 10,
-    background: "#00f0ff",
-    color: "#000",
-    border: "none",
-    padding: "6px 12px",
-    borderRadius: 6,
-    cursor: "pointer",
-    fontWeight: "bold",
-  },
-  gameTitle: {
-    fontSize: 16,
-    marginTop: 10,
-    color: "#77e",
-  },
-};
 
