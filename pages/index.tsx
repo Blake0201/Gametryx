@@ -38,47 +38,35 @@ export default function Home() {
     }
   };
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    alert("Steam username copied!");
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold mb-6">🎮 Gametryx SteamAcc</h1>
-      <input
-        type="text"
-        value={orderId}
-        onChange={(e) => setOrderId(e.target.value)}
-        placeholder="Enter Shopee Order ID"
-        className="mb-4 p-2 text-black rounded w-full max-w-md"
-      />
-      <button
-        onClick={handleSearch}
-        className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded mb-6"
-      >
-        Search Order
-      </button>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex items-center justify-center">
+      <div className="w-full max-w-md p-4 flex flex-col items-center">
+        <h1 className="text-3xl font-bold mb-6 text-center">🎮 Gametryx SteamAcc</h1>
+        <input
+          type="text"
+          value={orderId}
+          onChange={(e) => setOrderId(e.target.value)}
+          placeholder="Enter Shopee Order ID"
+          className="mb-4 p-2 text-black rounded w-full"
+        />
+        <button
+          onClick={handleSearch}
+          className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded mb-6"
+        >
+          Search Order
+        </button>
 
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
 
-      {steamData && (
-        <div className="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md space-y-3">
-          <div className="flex items-center justify-between">
-            <span><strong>Steam Username:</strong> {steamData.username}</span>
-            <button
-              onClick={() => copyToClipboard(steamData.username)}
-              className="bg-green-600 px-2 py-1 rounded text-sm"
-            >
-              Copy
-            </button>
+        {steamData && (
+          <div className="bg-gray-800 p-6 rounded-xl shadow-lg w-full space-y-3 text-center">
+            <p><strong>Game:</strong> {steamData.game}</p>
+            <p><strong>Steam Username:</strong> {steamData.username}</p>
+            <p><strong>Steam Password:</strong> {steamData.password}</p>
+            <p><strong>Guard Code:</strong> {steamData.code}</p>
           </div>
-          <p><strong>Steam Password:</strong> {steamData.password}</p>
-          <p><strong>Game:</strong> {steamData.game}</p>
-          <p><strong>Guard Code:</strong> {steamData.code}</p>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
-
