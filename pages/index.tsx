@@ -17,6 +17,7 @@ export default function Home() {
       password: "&3Hx0D9sA",
       game: "Cyberpunk 2077",
     },
+    // 可以继续加更多订单
   };
 
   const handleSearch = async () => {
@@ -38,9 +39,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-black text-white p-4">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 flex items-center justify-center">
       <div className="w-full max-w-md flex flex-col items-center">
-        <h1 className="text-3xl font-bold mb-6">🎮 Gametryx SteamAcc</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center">🎮 Gametryx SteamAcc</h1>
+
         <input
           type="text"
           value={orderId}
@@ -48,9 +50,10 @@ export default function Home() {
           placeholder="Enter Shopee Order ID"
           className="mb-4 p-2 text-black rounded w-full"
         />
+
         <button
           onClick={handleSearch}
-          className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded mb-6"
+          className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded mb-6 w-full"
         >
           Search Order
         </button>
