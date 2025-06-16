@@ -50,7 +50,7 @@ export default function Home() {
         type="text"
         value={orderId}
         onChange={(e) => setOrderId(e.target.value)}
-        placeholder="请输入 Shopee 订单号"
+        placeholder="Enter Shopee Order ID"
         className="mb-4 p-2 text-black rounded w-full max-w-md"
       />
       <button
@@ -73,9 +73,9 @@ export default function Home() {
               复制
             </button>
           </div>
-          <p><strong>Steam 密码:</strong> {steamData.password}</p>
-          <p><strong>游戏:</strong> {steamData.game}</p>
-          <p><strong>验证码:</strong> {steamData.code}</p>
+          <p><strong>Steam Password:</strong> {steamData.password}</p>
+          <p><strong>Game:</strong> {steamData.game}</p>
+          <p><strong>Steam Guard Code:</strong> {steamData.code}</p>
         </div>
       )}
     </div>
