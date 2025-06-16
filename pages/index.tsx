@@ -4,9 +4,9 @@ import axios from "axios";
 export default function Home() {
   const [orderId, setOrderId] = useState("");
   const [steamData, setSteamData] = useState<null | {
+    game: string;
     username: string;
     password: string;
-    game: string;
     code: string;
   }>(null);
   const [error, setError] = useState("");
@@ -45,7 +45,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold mb-6">🎮 Steam Guard Auto Retrieval System</h1>
+      <h1 className="text-3xl font-bold mb-6">🎮 Gametryx SteamAcc</h1>
       <input
         type="text"
         value={orderId}
