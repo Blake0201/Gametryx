@@ -1,41 +1,34 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import SteamTotp from "steam-totp";
 
-// 模拟数据库：Steam 用户名 和 对应的 shared_secret
-const secrets: Record<string, string> = {
-  "2ipujt": "AdaHc2xpQC4CV5AREPMRMrn7jOU=",
-};
-
-// 模拟数据库：Shopee 订单号和对应 Steam 用户名的绑定
-const validOrders: Record<string, string> = {
-  "231207J48RAG3E": "2ipujt", // 例子：订单编号 -> Steam 用户
+// 模拟数据库：Shopee 订单号 → Steam 帐号资料
+const orders: Record<string, { username: string; password: string; shared_secret: string }> = {
+  "231102HXRPY5DT": {
+    username: "2ipujt",
+    password: "&3Hx0D9sA",
+    shared_secret: "AdaHc2xpQC4CV5AREPMRMrn7jOU=",
+  },
 };
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { steamUsername, shopeeId } = req.query;
+  const { shopeeOrderId } = req.query;
 
-  if (!steamUsername || typeof steamUsername !== "string") {
-    return res.status(400).json({ error: "Missing steamUsername" });
+  if (!shopeeOrderId || typeof shopeeOrderId !== "string") {
+    return res.status(400).json({ error: "Missing shopeeOrderId" });
   }
 
-  if (!shopeeId || typeof shopeeId !== "string") {
-    return res.status(400).json({ error: "Missing shopeeId" });
-  }
-
-  // 检查订单是否存在 + 是否和用户名匹配
-  const expectedUser = validOrders[shopeeId];
-  if (!expectedUser || expectedUser !== steamUsername) {
-    return res.status(403).json({ error: "Invalid Shopee ID or mismatched Steam username" });
-  }
-
-  const sharedSecret = secrets[steamUsername];
-  if (!sharedSecret) {
-    return res.status(404).json({ error: "No shared_secret found for this username" });
+  const account = orders[shopeeOrderId];
+  if (!account) {
+    return res.status(404).json({ error: "Order not found" });
   }
 
   try {
-    const code = SteamTotp.generateAuthCode(sharedSecret);
-    return res.status(200).json({ code });
+    const code = SteamTotp.generateAuthCode(account.shared_secret);
+    return res.status(200).json({
+      username: account.username,
+      password: account.password,
+      code,
+    });
   } catch (err) {
     return res.status(500).json({ error: "Failed to generate code" });
   }
