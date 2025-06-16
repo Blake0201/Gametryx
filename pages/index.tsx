@@ -17,7 +17,7 @@ export default function Home() {
       password: "&3Hx0D9sA",
       game: "Cyberpunk 2077",
     },
-    // 你可以在这里添加更多订单ID
+    // Add more order IDs here if needed
   };
 
   const handleSearch = async () => {
@@ -25,7 +25,7 @@ export default function Home() {
     const record = fakeDatabase[orderId];
     if (!record) {
       setSteamData(null);
-      setError("找不到这个订单，请检查订单编号是否正确。");
+      setError("Order not found. Please check your order ID.");
       return;
     }
 
@@ -34,18 +34,18 @@ export default function Home() {
       const code = res.data.code;
       setSteamData({ ...record, code });
     } catch (err) {
-      setError("验证码生成失败，请稍后再试。");
+      setError("Failed to generate Steam Guard code. Please try again later.");
     }
   };
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    alert("已复制 Steam 用户名！");
+    alert("Steam username copied!");
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white p-4 flex flex-col items-center justify-center">
-      <h1 className="text-3xl font-bold mb-6">🎮 Steam Guard 自动提取系统</h1>
+      <h1 className="text-3xl font-bold mb-6">🎮 Steam Guard Auto Retrieval System</h1>
       <input
         type="text"
         value={orderId}
@@ -57,7 +57,7 @@ export default function Home() {
         onClick={handleSearch}
         className="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded mb-6"
       >
-        查找订单
+        Search Order
       </button>
 
       {error && <p className="text-red-500 mb-4">{error}</p>}
@@ -65,19 +65,20 @@ export default function Home() {
       {steamData && (
         <div className="bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-md space-y-3">
           <div className="flex items-center justify-between">
-            <span><strong>Steam 用户名:</strong> {steamData.username}</span>
+            <span><strong>Steam Username:</strong> {steamData.username}</span>
             <button
               onClick={() => copyToClipboard(steamData.username)}
               className="bg-green-600 px-2 py-1 rounded text-sm"
             >
-              复制
+              Copy
             </button>
           </div>
           <p><strong>Steam Password:</strong> {steamData.password}</p>
           <p><strong>Game:</strong> {steamData.game}</p>
-          <p><strong>Steam Guard Code:</strong> {steamData.code}</p>
+          <p><strong>Guard Code:</strong> {steamData.code}</p>
         </div>
       )}
     </div>
   );
 }
+
