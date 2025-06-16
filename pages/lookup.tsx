@@ -7,6 +7,7 @@ export default function LookupPage() {
     username: string;
     password: string;
     code: string;
+    game: string;
   }>(null);
   const [error, setError] = useState("");
 
@@ -49,6 +50,7 @@ export default function LookupPage() {
 
       {result && (
         <div style={{ marginTop: 20, border: "1px solid #ccc", padding: 10 }}>
+          <p><strong>🎮 游戏：</strong>{result.game}</p>
           <p><strong>🎮 Steam 用户名：</strong>{result.username}</p>
           <p><strong>🔑 密码：</strong>{result.password}</p>
           <p><strong>✅ Steam Guard 验证码：</strong>{result.code}</p>
