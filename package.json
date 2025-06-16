@@ -12,8 +12,6 @@
     "react-dom": "^18.2.0",
     "steam-totp": "^1.4.0"
     "axios": "^1.6.8",
-
-    
   },
   "devDependencies": {
     "typescript": "^5.4.5",
