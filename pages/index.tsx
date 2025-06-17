@@ -39,7 +39,7 @@ export default function Home() {
 
  return (
   <div className="min-h-screen bg-gradient-to-br from-[#0f172a] to-black text-white flex items-center justify-center px-4">
-    <div className="w-full max-w-md text-center">
+    <div className="w-full max-w-md text-center h-full flex flex-col justify-center">
       <h1 className="text-4xl font-bold mb-8 text-cyan-400 drop-shadow-lg">
         🎮 Gametryx Steam Account/Code
       </h1>
